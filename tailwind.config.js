@@ -7,7 +7,13 @@ module.exports = {
   ],
   darkMode: 'class', // 启用 class-based 暗色模式
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#3490dc',
+        secondary: '#ffed4a',
+        danger: '#e3342f',
+      },
+    },
   },
   plugins: [],
 }
