@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Search } from 'react-feather';
+import Link from 'next/link';
 
 interface Interview {
   id: number;
@@ -15,7 +16,6 @@ export default function InterviewList() {
     { id: 2, title: '产品经理面试', date: '2023-04-20' },
     { id: 3, title: '数据分析师面试', date: '2023-04-25' },
   ]);
-  const [selectedInterview, setSelectedInterview] = useState<Interview | null>(null);
   const [isListVisible, setIsListVisible] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -25,9 +25,9 @@ export default function InterviewList() {
 
   return (
     <div className="flex h-full">
-      <div className={`bg-gray-100 dark:bg-gray-800 ${isListVisible ? 'w-56' : 'w-0'} transition-all duration-300 overflow-hidden flex flex-col`}>
+      <div className={`bg-gray-100 dark:bg-gray-800 ${isListVisible ? 'w-64' : 'w-0'} transition-all duration-300 overflow-hidden flex flex-col`}>
         <div className="p-4 flex items-center justify-between">
-          <h2 className="text-lg font-bold">面试列表</h2>
+          <h2 className="text-lg font-bold">面试记录&分析</h2>
           <button
             onClick={() => setIsListVisible(!isListVisible)}
             className="focus:outline-none"
@@ -50,14 +50,12 @@ export default function InterviewList() {
         <ul className="flex-1 overflow-y-auto">
           {filteredInterviews.map((interview) => (
             <li key={interview.id} className="mb-2 px-4">
-              <button
-                onClick={() => setSelectedInterview(interview)}
-                className={`w-full text-left p-2 rounded text-sm ${
-                  selectedInterview?.id === interview.id ? 'bg-blue-100 dark:bg-blue-900' : 'hover:bg-gray-200 dark:hover:bg-gray-700'
-                }`}
-              >
-                {interview.title}
-              </button>
+              <Link href={`/interview/${interview.id}`}>
+                <div className={`w-full text-left p-2 rounded text-sm hover:bg-gray-200 dark:hover:bg-gray-700`}>
+                  <div className="font-semibold">{interview.title}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400">{interview.date}</div>
+                </div>
+              </Link>
             </li>
           ))}
         </ul>
@@ -70,18 +68,8 @@ export default function InterviewList() {
           <ChevronRight className="w-5 h-5" />
         </button>
       )}
-      <div className="flex-1 p-8">
-        {selectedInterview ? (
-          <div>
-            <h1 className="text-3xl font-bold mb-6">{selectedInterview.title}</h1>
-            <p className="mb-4">日期: {selectedInterview.date}</p>
-            <p className="mb-4">这里将显示面试的详细信息和分析结果。</p>
-          </div>
-        ) : (
-          <div className="text-center text-gray-500 dark:text-gray-400">
-            <p>请从左侧列表选择一个面试</p>
-          </div>
-        )}
+      <div className="flex-1 p-8 text-center text-gray-500 dark:text-gray-400">
+        <p>请从左侧列表选择一个面试</p>
       </div>
     </div>
   );
