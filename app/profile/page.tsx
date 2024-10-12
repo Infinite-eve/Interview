@@ -1,12 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function ProfilePage() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
   const [resume, setResume] = useState({
     education: '',
     skills: '',
@@ -14,53 +10,12 @@ export default function ProfilePage() {
     workExperience: '',
   });
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-    } else if (status === 'authenticated' && session?.user?.id) {
-      fetchResume(session.user.id);
-    }
-  }, [status, session]);
-
-  const fetchResume = async (userId: string) => {
-    try {
-      const response = await fetch(`/api/resume/${userId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setResume(data);
-      }
-    } catch (error) {
-      console.error('Failed to fetch resume:', error);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!session?.user?.id) return;
-
-    try {
-      const response = await fetch('/api/resume', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...resume, userId: session.user.id }),
-      });
-
-      if (response.ok) {
-        alert('简历更新成功');
-      } else {
-        alert('简历更新失败');
-      }
-    } catch (error) {
-      console.error('Failed to update resume:', error);
-      alert('简历更新失败');
-    }
+    // 这里可以添加保存简历的逻辑，但现在我们只是打印到控制台
+    console.log('保存的简历信息:', resume);
+    alert('简历信息已保存（模拟）');
   };
-
-  if (status === 'loading') {
-    return <div>加载中...</div>;
-  }
 
   return (
     <div className="max-w-2xl mx-auto mt-10">
@@ -111,7 +66,7 @@ export default function ProfilePage() {
             type="submit"
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            更新简历
+            保存简历
           </button>
         </div>
       </form>

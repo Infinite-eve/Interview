@@ -2,66 +2,48 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
-import { Home, User, FileText, Upload, LogOut, LogIn, Sun, Moon } from 'react-feather';
+import { Home, User, Upload, List, Moon, Sun } from 'react-feather';
 import { useTheme } from '../contexts/ThemeContext';
-
-const navItems = [
-  { href: '/', label: '首页', icon: Home },
-  { href: '/profile', label: '个人资料', icon: User },
-  { href: '/interviews', label: '面试记录', icon: FileText },
-  { href: '/upload', label: '上传音频', icon: Upload },
-];
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const { data: session } = useSession();
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <nav className="bg-gray-100 dark:bg-gray-800 w-64 min-h-screen p-4">
-      <div className="text-2xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">面试复盘</div>
-      <ul>
-        {navItems.map((item) => (
-          <li key={item.href} className="mb-4">
-            <Link
-              href={item.href}
-              className={`flex items-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 ${
-                pathname === item.href ? 'bg-gray-200 dark:bg-gray-700' : ''
-              }`}
-            >
-              <item.icon className="mr-2" size={18} />
-              {item.label}
+    <div className="w-48 bg-gray-100 dark:bg-gray-800 h-full flex flex-col">
+      <div className="p-4">
+        <h1 className="text-xl font-bold text-blue-600 dark:text-blue-400">面试复盘</h1>
+      </div>
+      <nav className="flex-1">
+        <ul className="space-y-2">
+          <li>
+            <Link href="/" className={`flex items-center p-2 ${pathname === '/' ? 'bg-blue-100 dark:bg-blue-900' : ''}`}>
+              <Home className="mr-2 w-4 h-4" /> <span className="text-sm">首页</span>
             </Link>
           </li>
-        ))}
-      </ul>
-      <div className="mt-auto">
-        <button
-          onClick={toggleTheme}
-          className="flex items-center w-full p-2 mt-4 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg"
-        >
-          {theme === 'light' ? <Moon className="mr-2" size={18} /> : <Sun className="mr-2" size={18} />}
-          {theme === 'light' ? '切换到暗色模式' : '切换到浅色模式'}
+          <li>
+            <Link href="/profile" className={`flex items-center p-2 ${pathname === '/profile' ? 'bg-blue-100 dark:bg-blue-900' : ''}`}>
+              <User className="mr-2 w-4 h-4" /> <span className="text-sm">个人资料</span>
+            </Link>
+          </li>
+          <li>
+            <Link href="/audio-upload" className={`flex items-center p-2 ${pathname === '/audio-upload' ? 'bg-blue-100 dark:bg-blue-900' : ''}`}>
+              <Upload className="mr-2 w-4 h-4" /> <span className="text-sm">音频上传</span>
+            </Link>
+          </li>
+          <li>
+            <Link href="/interview-list" className={`flex items-center p-2 ${pathname === '/interview-list' ? 'bg-blue-100 dark:bg-blue-900' : ''}`}>
+              <List className="mr-2 w-4 h-4" /> <span className="text-sm">面试列表</span>
+            </Link>
+          </li>
+        </ul>
+      </nav>
+      <div className="p-4">
+        <button onClick={toggleTheme} className="flex items-center text-sm">
+          {theme === 'dark' ? <Sun className="mr-2 w-4 h-4" /> : <Moon className="mr-2 w-4 h-4" />}
+          {theme === 'dark' ? '亮色模式' : '暗色模式'}
         </button>
-        {session ? (
-          <button
-            onClick={() => signOut()}
-            className="flex items-center w-full p-2 mt-4 bg-red-500 hover:bg-red-600 text-white rounded-lg"
-          >
-            <LogOut className="mr-2" size={18} />
-            注销
-          </button>
-        ) : (
-          <Link
-            href="/login"
-            className="flex items-center w-full p-2 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
-          >
-            <LogIn className="mr-2" size={18} />
-            登录
-          </Link>
-        )}
       </div>
-    </nav>
+    </div>
   );
 }

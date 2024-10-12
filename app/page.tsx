@@ -16,8 +16,8 @@ export default function Home() {
         </ul>
       </div>
       <div className="mt-8">
-        <Link href="/upload" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">
-          上传面试音频
+        <Link href="/interview-list" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">
+          查看面试列表
         </Link>
       </div>
     </div>
