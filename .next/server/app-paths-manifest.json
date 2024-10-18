@@ -1,1 +1,7 @@
-{}
+{
+  "/page": "app/page.js",
+  "/interview-list/page": "app/interview-list/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/interview/[id]/page": "app/interview/[id]/page.js",
+  "/audio-upload/page": "app/audio-upload/page.js"
+}
