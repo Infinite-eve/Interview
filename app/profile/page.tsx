@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Plus, Edit2, Trash2, X } from 'react-feather';
+import { UserButton, SignOutButton } from '@clerk/clerk-react';
 
 interface Education {
   id: string;
@@ -126,11 +127,7 @@ export default function ProfilePage() {
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">头像</h2>
         <div className="flex items-center space-x-4">
-          {avatar && <img src={avatar} alt="Avatar" className="w-20 h-20 rounded-full" />}
-          <input type="file" accept="image/*" onChange={handleAvatarUpload} className="hidden" id="avatar-upload" />
-          <label htmlFor="avatar-upload" className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600">
-            上传头像
-          </label>
+          <UserButton />
         </div>
       </div>
 
@@ -249,6 +246,14 @@ export default function ProfilePage() {
       >
         保存个人资料
       </button>
+
+      <div className="mt-6">
+        <SignOutButton>
+          <button className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+            退出登录
+          </button>
+        </SignOutButton>
+      </div>
 
       {/* 编辑弹窗 */}
       {editingItem && (
