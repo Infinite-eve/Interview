@@ -5,7 +5,7 @@ export default function Home() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-6 text-blue-600">欢迎使用面试复盘应用</h1>
       <p className="mb-4 text-gray-700">
-        这个应用可以帮助您上传面试音频，获取AI分析和建议，提高您的面试技巧。
+        您可以通过上传面试音频，获取AI分析和建议，以提高您的面试技巧。祝您面试顺利！
       </p>
       <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-blue-500">开始使用：</h2>
