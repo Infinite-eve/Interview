@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Simulation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Trading Simulation</h1>
+    <form method="post">
+        <label for="buy_price">Buy Price:</label>
+        <input type="text" id="buy_price" name="buy_price" required><br>
+        <label for="sell_price">Sell Price:</label>
+        <input type="text" id="sell_price" name="sell_price" required><br>
+        <label for="quota">Quota:</label>
+        <input type="text" id="quota" name="quota" required><br>
+        <button type="submit">Simulate Trades</button>
+    </form>
+
+    {% if total_return is not none %}
+        <h2>Total Return: ${{ total_return }}</h2>
+    {% endif %}
+</body>
+</html>
